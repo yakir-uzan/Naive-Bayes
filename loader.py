@@ -9,3 +9,5 @@ class DatasetLoader:
         if 'id' in df.columns:
             df = df.drop(columns = ['id'])
         return df
+
+#class cleaning:
