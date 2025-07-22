@@ -5,7 +5,7 @@ class DataCleaner:
         if 'id' in df.columns:
             df = df.drop(columns=['id'])
 
-        # הסרת עמודות ריקות
+        # מחיקת עמודות ריקות
         df = df.dropna(axis=1, how='all')
 
         for col in df.select_dtypes(include=['number']).columns:
