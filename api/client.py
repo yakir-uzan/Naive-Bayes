@@ -6,22 +6,22 @@ data = {
     "records": [
         {
             "data": {
-                "Age": "Youth",
-                "Income": "High",
-                "Student": "No",
-                "Credit_rating": "Fair"
+                "age": "youth",
+                "income": "high",
+                "student": "no",
+                "credit_rating": "fair"
             }
         },
         {
             "data": {
-                "Age": "Senior",
-                "Income": "Low",
-                "Student": "Yes",
-                "Credit_rating": "Excellent"
+                "age": "senior",
+                "income": "low",
+                "student": "yes",
+                "credit_rating": "excellent"
             }
         }
     ]
 }
 
 response = requests.post(url, json=data)
-print(response.json())
+print(response.text)

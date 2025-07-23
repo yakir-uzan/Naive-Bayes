@@ -1,7 +1,7 @@
 import pandas as pd
 
 class DataCleaner:
-    def clean(self, df: pd.DataFrame) -> pd.DataFrame:
+    def clean(self, df: pd.DataFrame):
         # הסרת עמודת ID אם קיימת
         if 'id' in df.columns:
             df = df.drop(columns=['id'])

@@ -141,39 +141,40 @@
   </div>
 
   <script>
-    document.getElementById('predictForm').addEventListener('submit', async function(event) {
-      event.preventDefault();
+  document.getElementById('predictForm').addEventListener('submit', async function(event) {
+    event.preventDefault();
 
-      const data = {
-        records: [
-          {
-            data: {
-              Age: document.getElementById('age').value,
-              Income: document.getElementById('income').value,
-              Student: document.getElementById('student').value,
-              CreditRating: document.getElementById('credit').value
-            }
+    const data = {
+      records: [
+        {
+          data: {
+            age: document.getElementById('age').value.toLowerCase(),
+            income: document.getElementById('income').value.toLowerCase(),
+            student: document.getElementById('student').value.toLowerCase(),
+            credit_rating: document.getElementById('credit').value.toLowerCase()
           }
-        ]
-      };
-
-      try {
-        const response = await fetch('/predict', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(data)
-        });
-
-        if (!response.ok) {
-          throw new Error(`Server error: ${response.statusText}`);
         }
+      ]
+    };
 
-        const resultText = await response.text();
-        document.getElementById('result').textContent = resultText;
-      } catch (err) {
-        document.getElementById('result').textContent = 'Error: ' + err.message;
+    try {
+      const response = await fetch('/predict', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data)
+      });
+
+      if (!response.ok) {
+        throw new Error(`Server error: ${response.statusText}`);
       }
-    });
-  </script>
+
+      const resultText = await response.text();
+      document.getElementById('result').textContent = resultText;
+    } catch (err) {
+      document.getElementById('result').textContent = 'Error: ' + err.message;
+    }
+  });
+</script>
+
 </body>
 </html>
