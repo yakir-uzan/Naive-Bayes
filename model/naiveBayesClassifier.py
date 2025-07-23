@@ -1,5 +1,5 @@
 import pandas as pd
-from naiveBayesModel import NaiveBayesModel
+from model.naiveBayesModel import NaiveBayesModel
 
 class NaiveBayesClassifier:
     def __init__(self, model: NaiveBayesModel):

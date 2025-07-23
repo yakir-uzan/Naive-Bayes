@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Predict Computer Purchase</title>
+<style>
+  * {
+    box-sizing: border-box;
+  }
+  body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: #f0f4f8;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    min-height: 100vh;
+    align-items: center;
+  }
+
+  .container {
+    background: white;
+    padding: 2.5rem 3rem;
+    border-radius: 12px;
+    box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+    width: 100%;
+    max-width: 440px;
+  }
+
+  h1 {
+    text-align: center;
+    color: #34495e;
+    margin-bottom: 1rem;
+    font-weight: 700;
+    font-size: 1.9rem;
+  }
+
+  form label {
+    display: block;
+    margin-top: 1.25rem;
+    font-weight: 600;
+    color: #34495e;
+  }
+
+  select {
+    width: 100%;
+    padding: 0.5rem 0.75rem;
+    margin-top: 0.4rem;
+    border: 2px solid #bdc3c7;
+    border-radius: 8px;
+    background: #ecf0f1;
+    font-size: 1rem;
+    transition: border-color 0.3s ease;
+  }
+
+  select:focus {
+    border-color: #2980b9;
+    outline: none;
+    background: #fff;
+  }
+
+  button {
+    margin-top: 2rem;
+    width: 100%;
+    padding: 0.75rem;
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: white;
+    background: #2980b9;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: background-color 0.25s ease;
+  }
+
+  button:hover {
+    background: #1f618d;
+  }
+
+  #result {
+    margin-top: 2rem;
+    background: #d6eaf8;
+    color: #154360;
+    padding: 1rem;
+    border-radius: 8px;
+    font-family: sans-serif;
+    text-align: center;
+    font-weight: bold;
+    font-size: 1.2rem;
+    min-height: 3rem;
+  }
+
+  @media (max-width: 480px) {
+    .container {
+      padding: 2rem 1.5rem;
+      max-width: 95%;
+    }
+  }
+</style>
+</head>
+<body>
+  <div class="container">
+    <h1>Predict Computer Purchase</h1>
+
+    <form id="predictForm" autocomplete="off">
+      <label for="age">Age</label>
+      <select id="age" name="age" required>
+        <option value="">-- Select Age --</option>
+        <option value="Youth">Youth</option>
+        <option value="Middle Aged">Middle Aged</option>
+        <option value="Senior">Senior</option>
+      </select>
+
+      <label for="income">Income</label>
+      <select id="income" name="income" required>
+        <option value="">-- Select Income --</option>
+        <option value="Low">Low</option>
+        <option value="Medium">Medium</option>
+        <option value="High">High</option>
+      </select>
+
+      <label for="student">Student</label>
+      <select id="student" name="student" required>
+        <option value="">-- Select Student --</option>
+        <option value="Yes">Yes</option>
+        <option value="No">No</option>
+      </select>
+
+      <label for="credit">Credit Rating</label>
+      <select id="credit" name="credit" required>
+        <option value="">-- Select Credit Rating --</option>
+        <option value="Fair">Fair</option>
+        <option value="Excellent">Excellent</option>
+      </select>
+
+      <button type="submit">Predict</button>
+    </form>
+
+    <div id="result"></div>
+  </div>
+
+  <script>
+    document.getElementById('predictForm').addEventListener('submit', async function(event) {
+      event.preventDefault();
+
+      const data = {
+        records: [
+          {
+            data: {
+              Age: document.getElementById('age').value,
+              Income: document.getElementById('income').value,
+              Student: document.getElementById('student').value,
+              CreditRating: document.getElementById('credit').value
+            }
+          }
+        ]
+      };
+
+      try {
+        const response = await fetch('/predict', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(data)
+        });
+
+        if (!response.ok) {
+          throw new Error(`Server error: ${response.statusText}`);
+        }
+
+        const resultText = await response.text();
+        document.getElementById('result').textContent = resultText;
+      } catch (err) {
+        document.getElementById('result').textContent = 'Error: ' + err.message;
+      }
+    });
+  </script>
+</body>
+</html>
