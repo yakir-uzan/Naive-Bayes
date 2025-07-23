@@ -11,3 +11,5 @@ COPY . .
 EXPOSE 8000
 
 CMD ["bash", "-c", "uvicorn server:app --host 0.0.0.0 --port 8000"]
+
+
