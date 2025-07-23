@@ -19,5 +19,4 @@ class DataCleaner:
 
         # איפוס האינדקס
         df = df.reset_index(drop=True)
-
         return df
